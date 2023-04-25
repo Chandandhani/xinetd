@@ -1,0 +1,5 @@
+service inventiaapi
+{
+	type = unlisted
+	port = 3737
+}

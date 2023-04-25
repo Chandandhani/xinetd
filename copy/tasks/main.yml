@@ -1,0 +1,23 @@
+---
+# tasks file for copy
+- name: installing xinetd package
+  apt:
+    name: xinetd
+    state: present
+- name: copy config file
+  ansible.builtin.template:
+    src: ./inventiaapi_config 
+    dest: /etc/xinetd.d
+- name: copy inventiaapi.sh file
+  ansible.builtin.template:
+    src: ./inventiaapi.sh
+    dest: /srv/.script
+- name: assign execute permission
+  ansible.builtin.command: chmod 700 /srv/.script/inventiaapi.sh
+- name: printing hostname
+  debug:
+    msg: "curl -k http://{{ hostname }}.example.com"
+- name: reload xinetd service
+  ansible.builtin.service:
+    name: xinetd
+    state: reloaded 
